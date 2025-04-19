@@ -43,7 +43,15 @@ const MatchDetails = () => {
   if (!id) {
     return (
       <Layout>
-        <div className="container mx-auto py-8">Match ID not found</div>
+        <div className="container mx-auto py-8">
+          <div className="text-center p-8 bg-muted rounded-lg">
+            <h2 className="text-xl font-bold mb-2">Match ID Not Found</h2>
+            <p className="mb-4">No match ID was provided in the URL.</p>
+            <Button asChild>
+              <Link to="/">Go to Matches List</Link>
+            </Button>
+          </div>
+        </div>
       </Layout>
     );
   }
@@ -72,7 +80,7 @@ const MatchDetails = () => {
             </CardContent>
           </Card>
         ) : matchData ? (
-          <Card className="mb-6">
+          <Card className="mb-6 transition-all hover:shadow-md">
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
                 <span>{matchData.title}</span>
@@ -113,7 +121,13 @@ const MatchDetails = () => {
             </CardContent>
           </Card>
         ) : (
-          <div>Error loading match data</div>
+          <div className="p-6 border rounded-lg shadow-sm bg-destructive/10 text-center">
+            <h2 className="text-xl font-bold mb-2">Error Loading Match</h2>
+            <p>Unable to load match data for ID: {id}</p>
+            <Button className="mt-4" asChild>
+              <Link to="/">Return to Matches</Link>
+            </Button>
+          </div>
         )}
         
         <MatchDatabaseIntegration matchId={id} />

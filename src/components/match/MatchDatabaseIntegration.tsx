@@ -1,8 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Textarea } from '@/components/ui/textarea';
 import { useFirestore } from '@/hooks/useDatabase';
 import { useMatch } from '@/services/cricketApi';
 import { useAuth } from '@/contexts/AuthContext';
@@ -167,6 +169,7 @@ const MatchDatabaseIntegration = ({ matchId }: MatchDatabaseIntegrationProps) =>
         });
       }
     } catch (error) {
+      console.error('Error saving notes:', error);
       toast({
         title: "Error",
         description: "Failed to save notes.",
@@ -213,8 +216,39 @@ const MatchDatabaseIntegration = ({ matchId }: MatchDatabaseIntegrationProps) =>
             ? "This match has been added to your favorites." 
             : "This match has been removed from your favorites."
         });
+      } else {
+        // Create a new document if one doesn't exist
+        const data: UserMatch = {
+          matchId: currentMatchId,
+          userId: currentUser.uid,
+          notes: notes,
+          favorite: newFavoriteStatus,
+          createdAt: new Date().toISOString()
+        };
+        
+        await createDocument(
+          data, 
+          `${currentUser.uid}_${currentMatchId}`
+        );
+        
+        // Log activity
+        if (matchData) {
+          await logMatchActivity(
+            currentUser.uid,
+            currentMatchId,
+            matchData.title,
+            'favorite',
+            newFavoriteStatus ? 'Added to favorites' : 'Removed from favorites'
+          );
+        }
+        
+        toast({
+          title: "Added to Favorites",
+          description: "This match has been added to your favorites."
+        });
       }
     } catch (error) {
+      console.error('Error updating favorite status:', error);
       // Revert state on error
       setIsFavorite(!newFavoriteStatus);
       
@@ -240,6 +274,7 @@ const MatchDatabaseIntegration = ({ matchId }: MatchDatabaseIntegrationProps) =>
                 variant="outline" 
                 size="sm" 
                 onClick={handleSyncToFirebase}
+                aria-label="Sync match to Firebase"
               >
                 Sync to Firebase
               </Button>
@@ -264,6 +299,7 @@ const MatchDatabaseIntegration = ({ matchId }: MatchDatabaseIntegrationProps) =>
                         variant={isFavorite ? "default" : "outline"}
                         onClick={toggleFavorite}
                         disabled={!currentUser}
+                        aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
                       >
                         {isFavorite ? "Favorited" : "Add to Favorites"}
                       </Button>
@@ -271,6 +307,7 @@ const MatchDatabaseIntegration = ({ matchId }: MatchDatabaseIntegrationProps) =>
                         variant="outline"
                         onClick={saveMatchToFirebase}
                         disabled={!currentUser || !matchData}
+                        aria-label="Save match data"
                       >
                         Save Match Data
                       </Button>
@@ -302,10 +339,10 @@ const MatchDatabaseIntegration = ({ matchId }: MatchDatabaseIntegrationProps) =>
                     <label htmlFor="notes" className="block font-medium">
                       Your Notes
                     </label>
-                    <textarea
+                    <Textarea
                       id="notes"
                       rows={4}
-                      className="w-full rounded-md border border-input bg-background px-3 py-2"
+                      className="w-full resize-none border-input focus:border-primary"
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
                       placeholder="Add your notes about this match..."
@@ -314,6 +351,8 @@ const MatchDatabaseIntegration = ({ matchId }: MatchDatabaseIntegrationProps) =>
                     <Button 
                       onClick={handleSaveNotes} 
                       disabled={isSaving || !currentUser}
+                      aria-label="Save notes"
+                      className="mt-2"
                     >
                       {isSaving ? "Saving..." : "Save Notes"}
                     </Button>
