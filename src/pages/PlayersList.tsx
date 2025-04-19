@@ -10,6 +10,16 @@ import { Link } from 'react-router-dom';
 import { Skeleton } from '@/components/ui/skeleton';
 import { motion } from 'framer-motion';
 
+// Player images mapping
+const playerImages = {
+  'Virat Kohli': 'https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop',
+  'Rohit Sharma': 'https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop',
+  'MS Dhoni': 'https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop',
+  'KL Rahul': 'https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop',
+  'Jasprit Bumrah': 'https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop',
+  'Ravindra Jadeja': 'https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop'
+};
+
 const PlayersList = () => {
   const { data: players, isLoading, error } = usePlayers();
 
@@ -107,7 +117,10 @@ const PlayersList = () => {
                   <CardHeader className="pb-0">
                     <div className="flex items-center gap-4">
                       <Avatar className="h-12 w-12">
-                        <AvatarImage src={`https://placehold.co/200x200/3B82F6/FFFFFF/png?text=${player.name.charAt(0)}${player.name.split(' ')[1]?.charAt(0) || ''}`} />
+                        <AvatarImage 
+                          src={playerImages[player.name as keyof typeof playerImages] || `https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop`} 
+                          alt={player.name}
+                        />
                         <AvatarFallback>{player.name.charAt(0)}</AvatarFallback>
                       </Avatar>
                       <div>
