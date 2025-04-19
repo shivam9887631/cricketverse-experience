@@ -10,14 +10,14 @@ import { Link } from 'react-router-dom';
 import { Skeleton } from '@/components/ui/skeleton';
 import { motion } from 'framer-motion';
 
-// Player images mapping
+// Player images mapping with unique images for each player
 const playerImages = {
   'Virat Kohli': 'https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop',
-  'Rohit Sharma': 'https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop',
-  'MS Dhoni': 'https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop',
-  'KL Rahul': 'https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop',
-  'Jasprit Bumrah': 'https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop',
-  'Ravindra Jadeja': 'https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop'
+  'Rohit Sharma': 'https://images.unsplash.com/photo-1500280366556-a51583fd952f?q=80&w=400&auto=format&fit=crop',
+  'MS Dhoni': 'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=400&auto=format&fit=crop',
+  'KL Rahul': 'https://images.unsplash.com/photo-1546518071-fddcdda7580a?q=80&w=400&auto=format&fit=crop',
+  'Jasprit Bumrah': 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=400&auto=format&fit=crop',
+  'Ravindra Jadeja': 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef3?q=80&w=400&auto=format&fit=crop'
 };
 
 const PlayersList = () => {
@@ -118,7 +118,7 @@ const PlayersList = () => {
                     <div className="flex items-center gap-4">
                       <Avatar className="h-12 w-12">
                         <AvatarImage 
-                          src={playerImages[player.name as keyof typeof playerImages] || `https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop`} 
+                          src={playerImages[player.name as keyof typeof playerImages] || `https://images.unsplash.com/photo-1569078449082-d264d9e239c5?q=80&w=400&auto=format&fit=crop`} 
                           alt={player.name}
                         />
                         <AvatarFallback>{player.name.charAt(0)}</AvatarFallback>

@@ -26,13 +26,23 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
 
+// Player image mapping with unique images for each player
+const playerImages = {
+  'Virat Kohli': 'https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop',
+  'MS Dhoni': 'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=400&auto=format&fit=crop',
+  'Rohit Sharma': 'https://images.unsplash.com/photo-1500280366556-a51583fd952f?q=80&w=400&auto=format&fit=crop',
+  'KL Rahul': 'https://images.unsplash.com/photo-1546518071-fddcdda7580a?q=80&w=400&auto=format&fit=crop',
+  'Jasprit Bumrah': 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=400&auto=format&fit=crop',
+  'Ravindra Jadeja': 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef3?q=80&w=400&auto=format&fit=crop'
+};
+
 // Mock player data
 const players = [
   {
     id: '1',
     name: 'Virat Kohli',
     nickname: 'King Kohli',
-    image: 'https://placehold.co/300x400/3B82F6/FFFFFF/png?text=VK',
+    image: playerImages['Virat Kohli'],
     role: 'Batsman',
     battingStyle: 'Right-handed',
     bowlingStyle: 'Right-arm medium',
@@ -79,7 +89,7 @@ const players = [
     id: '2',
     name: 'MS Dhoni',
     nickname: 'Captain Cool',
-    image: 'https://placehold.co/300x400/10B981/FFFFFF/png?text=MSD',
+    image: playerImages['MS Dhoni'],
     role: 'Wicketkeeper-Batsman',
     battingStyle: 'Right-handed',
     bowlingStyle: 'Right-arm medium',
@@ -199,7 +209,7 @@ const PlayerProfile = () => {
           {/* Player Image */}
           <div className="relative h-80 md:h-full overflow-hidden">
             <img 
-              src={player.image} 
+              src={player.image || playerImages[player.name] || 'https://images.unsplash.com/photo-1569078449082-d264d9e239c5?q=80&w=400&auto=format&fit=crop'} 
               alt={player.name}
               className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
             />
