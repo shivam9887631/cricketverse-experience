@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useParams } from 'react-router-dom';
@@ -26,14 +25,14 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
 
-// Player image mapping with unique images for each player
+// Player images mapping with actual cricket player images
 const playerImages = {
-  'Virat Kohli': 'https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop',
-  'MS Dhoni': 'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=400&auto=format&fit=crop',
-  'Rohit Sharma': 'https://images.unsplash.com/photo-1500280366556-a51583fd952f?q=80&w=400&auto=format&fit=crop',
-  'KL Rahul': 'https://images.unsplash.com/photo-1546518071-fddcdda7580a?q=80&w=400&auto=format&fit=crop',
-  'Jasprit Bumrah': 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=400&auto=format&fit=crop',
-  'Ravindra Jadeja': 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef3?q=80&w=400&auto=format&fit=crop'
+  'Virat Kohli': 'https://resources.pulse.icc-cricket.com/ICC/photo/2023/11/24/1aeabc3f-9d60-48d8-b5c9-d9cf34ae0f43/GettyImages-1235363734.jpg',
+  'Rohit Sharma': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319700/319702.png',
+  'MS Dhoni': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiANpXkWX5qE-HV22qNXLhCbaiB5iN6KeDJn2lj3AYxQ&s',
+  'KL Rahul': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBYdVGGKsS4eEtq4aqLOoRxW-o5H2mSuaXDGqLBdw-8A&s',
+  'Jasprit Bumrah': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319900/319938.png',
+  'Ravindra Jadeja': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFfpGiZxKsb-iLCK7HALIAGXg_JJcx04Vvbf0v9S7B&s'
 };
 
 // Mock player data
@@ -143,10 +142,9 @@ const PlayerProfile = () => {
   const { toast } = useToast();
   
   useEffect(() => {
-    // Simulate API fetch
     const timer = setTimeout(() => {
       const foundPlayer = players.find(p => p.id === id);
-      setPlayer(foundPlayer || players[0]); // Fallback to first player if not found
+      setPlayer(foundPlayer || players[0]);
       setLoading(false);
     }, 1000);
     
@@ -209,7 +207,7 @@ const PlayerProfile = () => {
           {/* Player Image */}
           <div className="relative h-80 md:h-full overflow-hidden">
             <img 
-              src={player.image || playerImages[player.name] || 'https://images.unsplash.com/photo-1569078449082-d264d9e239c5?q=80&w=400&auto=format&fit=crop'} 
+              src={player.image || playerImages[player.name] || 'https://resources.pulse.icc-cricket.com/ICC/photo/2023/10/01/5c89ea63-9ac8-49a1-88af-fe194f9b86a1/GettyImages-1243278328.jpg'} 
               alt={player.name}
               className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
             />

@@ -10,14 +10,14 @@ import { Link } from 'react-router-dom';
 import { Skeleton } from '@/components/ui/skeleton';
 import { motion } from 'framer-motion';
 
-// Player images mapping with unique images for each player
+// Player images mapping with actual cricket player images
 const playerImages = {
-  'Virat Kohli': 'https://images.unsplash.com/photo-1593466144117-2d94837761a6?q=80&w=400&auto=format&fit=crop',
-  'Rohit Sharma': 'https://images.unsplash.com/photo-1500280366556-a51583fd952f?q=80&w=400&auto=format&fit=crop',
-  'MS Dhoni': 'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=400&auto=format&fit=crop',
-  'KL Rahul': 'https://images.unsplash.com/photo-1546518071-fddcdda7580a?q=80&w=400&auto=format&fit=crop',
-  'Jasprit Bumrah': 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=400&auto=format&fit=crop',
-  'Ravindra Jadeja': 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef3?q=80&w=400&auto=format&fit=crop'
+  'Virat Kohli': 'https://resources.pulse.icc-cricket.com/ICC/photo/2023/11/24/1aeabc3f-9d60-48d8-b5c9-d9cf34ae0f43/GettyImages-1235363734.jpg',
+  'Rohit Sharma': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319700/319702.png',
+  'MS Dhoni': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiANpXkWX5qE-HV22qNXLhCbaiB5iN6KeDJn2lj3AYxQ&s',
+  'KL Rahul': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBYdVGGKsS4eEtq4aqLOoRxW-o5H2mSuaXDGqLBdw-8A&s',
+  'Jasprit Bumrah': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319900/319938.png',
+  'Ravindra Jadeja': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFfpGiZxKsb-iLCK7HALIAGXg_JJcx04Vvbf0v9S7B&s'
 };
 
 const PlayersList = () => {
@@ -118,7 +118,7 @@ const PlayersList = () => {
                     <div className="flex items-center gap-4">
                       <Avatar className="h-12 w-12">
                         <AvatarImage 
-                          src={playerImages[player.name as keyof typeof playerImages] || `https://images.unsplash.com/photo-1569078449082-d264d9e239c5?q=80&w=400&auto=format&fit=crop`} 
+                          src={playerImages[player.name as keyof typeof playerImages] || `https://resources.pulse.icc-cricket.com/ICC/photo/2023/10/01/5c89ea63-9ac8-49a1-88af-fe194f9b86a1/GettyImages-1243278328.jpg`} 
                           alt={player.name}
                         />
                         <AvatarFallback>{player.name.charAt(0)}</AvatarFallback>
