@@ -25,17 +25,15 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
 
-// Player images mapping with actual cricket player images
 const playerImages = {
-  'Virat Kohli': 'https://resources.pulse.icc-cricket.com/ICC/photo/2023/11/24/1aeabc3f-9d60-48d8-b5c9-d9cf34ae0f43/GettyImages-1235363734.jpg',
+  'Virat Kohli': '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png',
   'Rohit Sharma': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319700/319702.png',
-  'MS Dhoni': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiANpXkWX5qE-HV22qNXLhCbaiB5iN6KeDJn2lj3AYxQ&s',
-  'KL Rahul': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBYdVGGKsS4eEtq4aqLOoRxW-o5H2mSuaXDGqLBdw-8A&s',
+  'MS Dhoni': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/289000/289002.1.jpg',
+  'KL Rahul': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319900/319942.png',
   'Jasprit Bumrah': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319900/319938.png',
-  'Ravindra Jadeja': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFfpGiZxKsb-iLCK7HALIAGXg_JJcx04Vvbf0v9S7B&s'
+  'Ravindra Jadeja': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/316500/316534.png'
 };
 
-// Mock player data
 const players = [
   {
     id: '1',
@@ -196,7 +194,6 @@ const PlayerProfile = () => {
 
   return (
     <Layout>
-      {/* Player Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -204,10 +201,9 @@ const PlayerProfile = () => {
         className="glass-card rounded-xl overflow-hidden mb-6"
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Player Image */}
           <div className="relative h-80 md:h-full overflow-hidden">
             <img 
-              src={player.image || playerImages[player.name] || 'https://resources.pulse.icc-cricket.com/ICC/photo/2023/10/01/5c89ea63-9ac8-49a1-88af-fe194f9b86a1/GettyImages-1243278328.jpg'} 
+              src={playerImages[player.name as keyof typeof playerImages] || '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png'} 
               alt={player.name}
               className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
             />
@@ -221,7 +217,6 @@ const PlayerProfile = () => {
             </div>
           </div>
           
-          {/* Player Info */}
           <div className="md:col-span-2 p-6">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
               <div>
@@ -311,7 +306,6 @@ const PlayerProfile = () => {
         </div>
       </motion.div>
       
-      {/* Player Details */}
       <Tabs defaultValue="stats" className="w-full">
         <TabsList className="grid grid-cols-3 md:grid-cols-5 mb-6">
           <TabsTrigger value="stats" className="text-sm">Statistics</TabsTrigger>
@@ -863,7 +857,7 @@ const PlayerProfile = () => {
                 >
                   <div className="h-60 bg-gray-100 dark:bg-gray-800 overflow-hidden">
                     <img 
-                      src={`https://placehold.co/600x800/${index % 2 === 0 ? '3B82F6' : '10B981'}/FFFFFF/png?text=${player.name.split(' ')[0]}`} 
+                      src={playerImages[player.name as keyof typeof playerImages] || '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png'}
                       alt={`${player.name} action shot ${index + 1}`}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                     />

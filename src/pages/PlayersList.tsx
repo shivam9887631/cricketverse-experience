@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Layout from '@/components/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,12 +11,12 @@ import { motion } from 'framer-motion';
 
 // Player images mapping with actual cricket player images
 const playerImages = {
-  'Virat Kohli': 'https://resources.pulse.icc-cricket.com/ICC/photo/2023/11/24/1aeabc3f-9d60-48d8-b5c9-d9cf34ae0f43/GettyImages-1235363734.jpg',
+  'Virat Kohli': '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png',
   'Rohit Sharma': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319700/319702.png',
-  'MS Dhoni': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiANpXkWX5qE-HV22qNXLhCbaiB5iN6KeDJn2lj3AYxQ&s',
-  'KL Rahul': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBYdVGGKsS4eEtq4aqLOoRxW-o5H2mSuaXDGqLBdw-8A&s',
+  'MS Dhoni': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/289000/289002.1.jpg',
+  'KL Rahul': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319900/319942.png',
   'Jasprit Bumrah': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319900/319938.png',
-  'Ravindra Jadeja': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFfpGiZxKsb-iLCK7HALIAGXg_JJcx04Vvbf0v9S7B&s'
+  'Ravindra Jadeja': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/316500/316534.png'
 };
 
 const PlayersList = () => {
@@ -118,7 +117,7 @@ const PlayersList = () => {
                     <div className="flex items-center gap-4">
                       <Avatar className="h-12 w-12">
                         <AvatarImage 
-                          src={playerImages[player.name as keyof typeof playerImages] || `https://resources.pulse.icc-cricket.com/ICC/photo/2023/10/01/5c89ea63-9ac8-49a1-88af-fe194f9b86a1/GettyImages-1243278328.jpg`} 
+                          src={playerImages[player.name as keyof typeof playerImages] || '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png'} 
                           alt={player.name}
                         />
                         <AvatarFallback>{player.name.charAt(0)}</AvatarFallback>
