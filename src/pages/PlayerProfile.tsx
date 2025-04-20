@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useParams } from 'react-router-dom';
@@ -25,6 +26,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
 
+// Player images mapping with actual cricket player images
 const playerImages = {
   'Virat Kohli': '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png',
   'Rohit Sharma': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319700/319702.png',
@@ -32,6 +34,14 @@ const playerImages = {
   'KL Rahul': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319900/319942.png',
   'Jasprit Bumrah': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319900/319938.png',
   'Ravindra Jadeja': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/316500/316534.png'
+};
+
+// Default fallback image
+const defaultPlayerImage = '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png';
+
+// Function to get player image
+const getPlayerImage = (playerName) => {
+  return playerImages[playerName] || defaultPlayerImage;
 };
 
 const players = [
@@ -203,7 +213,7 @@ const PlayerProfile = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="relative h-80 md:h-full overflow-hidden">
             <img 
-              src={playerImages[player.name as keyof typeof playerImages] || '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png'} 
+              src={getPlayerImage(player.name)} 
               alt={player.name}
               className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
             />
@@ -857,7 +867,7 @@ const PlayerProfile = () => {
                 >
                   <div className="h-60 bg-gray-100 dark:bg-gray-800 overflow-hidden">
                     <img 
-                      src={playerImages[player.name as keyof typeof playerImages] || '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png'}
+                      src={getPlayerImage(player.name)}
                       alt={`${player.name} action shot ${index + 1}`}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                     />

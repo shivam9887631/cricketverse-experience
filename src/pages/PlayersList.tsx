@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Layout from '@/components/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,6 +19,9 @@ const playerImages = {
   'Jasprit Bumrah': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319900/319938.png',
   'Ravindra Jadeja': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/316500/316534.png'
 };
+
+// Default fallback image
+const defaultPlayerImage = '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png';
 
 const PlayersList = () => {
   const { data: players, isLoading, error } = usePlayers();
@@ -63,6 +67,10 @@ const PlayersList = () => {
   ];
 
   const displayPlayers = players || mockPlayers;
+
+  const getPlayerImage = (playerName) => {
+    return playerImages[playerName] || defaultPlayerImage;
+  };
 
   return (
     <Layout>
@@ -117,7 +125,7 @@ const PlayersList = () => {
                     <div className="flex items-center gap-4">
                       <Avatar className="h-12 w-12">
                         <AvatarImage 
-                          src={playerImages[player.name as keyof typeof playerImages] || '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png'} 
+                          src={getPlayerImage(player.name)} 
                           alt={player.name}
                         />
                         <AvatarFallback>{player.name.charAt(0)}</AvatarFallback>
