@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 // Use a single reliable image source for all players
 const defaultPlayerImage = '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png';
 
-// Player images mapping with actual cricket player images
+// Player images mapping - simplified to use the same image
 const playerImages = {
   'Virat Kohli': defaultPlayerImage,
   'Rohit Sharma': defaultPlayerImage,
@@ -67,10 +67,7 @@ const PlayersList = () => {
 
   const displayPlayers = players || mockPlayers;
 
-  const getPlayerImage = (playerName) => {
-    console.log("Getting image for player in list:", playerName);
-    return playerImages[playerName] || defaultPlayerImage;
-  };
+  console.log("Default player image path:", defaultPlayerImage);
 
   return (
     <Layout>
@@ -128,7 +125,7 @@ const PlayersList = () => {
                           src={defaultPlayerImage}
                           alt={player.name}
                           onError={(e) => {
-                            console.error("List image failed to load:", e);
+                            console.error("Avatar image error in PlayersList:", e);
                             e.currentTarget.src = defaultPlayerImage;
                           }}
                         />

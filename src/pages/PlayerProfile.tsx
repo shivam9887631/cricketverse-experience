@@ -25,32 +25,14 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
 
-// Player images mapping with actual cricket player images
-const playerImages = {
-  'Virat Kohli': '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png',
-  'Rohit Sharma': '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png',
-  'MS Dhoni': '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png',
-  'KL Rahul': '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png',
-  'Jasprit Bumrah': '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png',
-  'Ravindra Jadeja': '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png'
-};
-
-// Default fallback image - using the uploaded image for all players
 const defaultPlayerImage = '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png';
-
-// Function to get player image with console logging for debugging
-const getPlayerImage = (playerName) => {
-  console.log("Getting image for player:", playerName);
-  console.log("Image path:", playerImages[playerName] || defaultPlayerImage);
-  return playerImages[playerName] || defaultPlayerImage;
-};
 
 const players = [
   {
     id: '1',
     name: 'Virat Kohli',
     nickname: 'King Kohli',
-    image: playerImages['Virat Kohli'],
+    image: defaultPlayerImage,
     role: 'Batsman',
     battingStyle: 'Right-handed',
     bowlingStyle: 'Right-arm medium',
@@ -97,7 +79,7 @@ const players = [
     id: '2',
     name: 'MS Dhoni',
     nickname: 'Captain Cool',
-    image: playerImages['MS Dhoni'],
+    image: defaultPlayerImage,
     role: 'Wicketkeeper-Batsman',
     battingStyle: 'Right-handed',
     bowlingStyle: 'Right-arm medium',
@@ -153,6 +135,7 @@ const PlayerProfile = () => {
   useEffect(() => {
     console.log("PlayerProfile component mounted");
     console.log("Looking for player with ID:", id);
+    console.log("Default player image path:", defaultPlayerImage);
     
     const timer = setTimeout(() => {
       const foundPlayer = players.find(p => p.id === id);
@@ -222,25 +205,26 @@ const PlayerProfile = () => {
               alt={player?.name || "Cricket Player"}
               className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
               onError={(e) => {
-                console.error("Image failed to load:", e);
+                console.error("Profile image failed to load:", e);
+                console.log("Trying fallback image");
                 e.currentTarget.src = defaultPlayerImage;
               }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
             <div className="absolute bottom-0 left-0 p-4 text-white">
               <div className="px-2 py-1 text-xs rounded-full bg-primary inline-block mb-2">
-                {player.role}
+                {player?.role}
               </div>
-              <h1 className="text-2xl font-bold">{player.name}</h1>
-              <p className="text-sm opacity-80">{player.nickname}</p>
+              <h1 className="text-2xl font-bold">{player?.name}</h1>
+              <p className="text-sm opacity-80">{player?.nickname}</p>
             </div>
           </div>
           
           <div className="md:col-span-2 p-6">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
               <div>
-                <h1 className="text-3xl font-bold">{player.name}</h1>
-                <p className="text-lg text-muted-foreground">{player.team}</p>
+                <h1 className="text-3xl font-bold">{player?.name}</h1>
+                <p className="text-lg text-muted-foreground">{player?.team}</p>
               </div>
               
               <div className="flex items-center space-x-2">
@@ -441,8 +425,8 @@ const PlayerProfile = () => {
                 </div>
               </div>
               
-              <div className="grid grid-cols-2 gap-6 mt-6">
-                <div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
+                <div className="flex flex-col">
                   <h5 className="text-sm font-medium mb-3">Boundary Breakdown</h5>
                   <div className="glass-card p-3 rounded-lg text-center grid grid-cols-2 gap-4">
                     <div>
@@ -880,7 +864,8 @@ const PlayerProfile = () => {
                       alt={`${player?.name || "Cricket Player"} action shot ${index + 1}`}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                       onError={(e) => {
-                        console.error("Gallery image failed to load:", e);
+                        console.error("Gallery image failed to load in gallery tab:", e);
+                        console.log("Trying fallback image for gallery");
                         e.currentTarget.src = defaultPlayerImage;
                       }}
                     />
