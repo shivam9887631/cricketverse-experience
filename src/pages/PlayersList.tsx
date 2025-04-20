@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Layout from '@/components/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,18 +9,18 @@ import { Link } from 'react-router-dom';
 import { Skeleton } from '@/components/ui/skeleton';
 import { motion } from 'framer-motion';
 
+// Use a single reliable image source for all players
+const defaultPlayerImage = '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png';
+
 // Player images mapping with actual cricket player images
 const playerImages = {
-  'Virat Kohli': '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png',
-  'Rohit Sharma': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319700/319702.png',
-  'MS Dhoni': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/289000/289002.1.jpg',
-  'KL Rahul': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319900/319942.png',
-  'Jasprit Bumrah': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319900/319938.png',
-  'Ravindra Jadeja': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/316500/316534.png'
+  'Virat Kohli': defaultPlayerImage,
+  'Rohit Sharma': defaultPlayerImage,
+  'MS Dhoni': defaultPlayerImage,
+  'KL Rahul': defaultPlayerImage,
+  'Jasprit Bumrah': defaultPlayerImage,
+  'Ravindra Jadeja': defaultPlayerImage
 };
-
-// Default fallback image
-const defaultPlayerImage = '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png';
 
 const PlayersList = () => {
   const { data: players, isLoading, error } = usePlayers();
@@ -69,6 +68,7 @@ const PlayersList = () => {
   const displayPlayers = players || mockPlayers;
 
   const getPlayerImage = (playerName) => {
+    console.log("Getting image for player in list:", playerName);
     return playerImages[playerName] || defaultPlayerImage;
   };
 
@@ -125,8 +125,12 @@ const PlayersList = () => {
                     <div className="flex items-center gap-4">
                       <Avatar className="h-12 w-12">
                         <AvatarImage 
-                          src={getPlayerImage(player.name)} 
+                          src={defaultPlayerImage}
                           alt={player.name}
+                          onError={(e) => {
+                            console.error("List image failed to load:", e);
+                            e.currentTarget.src = defaultPlayerImage;
+                          }}
                         />
                         <AvatarFallback>{player.name.charAt(0)}</AvatarFallback>
                       </Avatar>

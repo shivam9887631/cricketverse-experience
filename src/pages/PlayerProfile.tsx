@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useParams } from 'react-router-dom';
@@ -29,18 +28,20 @@ import { useToast } from '@/components/ui/use-toast';
 // Player images mapping with actual cricket player images
 const playerImages = {
   'Virat Kohli': '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png',
-  'Rohit Sharma': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319700/319702.png',
-  'MS Dhoni': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/289000/289002.1.jpg',
-  'KL Rahul': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319900/319942.png',
-  'Jasprit Bumrah': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319900/319938.png',
-  'Ravindra Jadeja': 'https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/316500/316534.png'
+  'Rohit Sharma': '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png',
+  'MS Dhoni': '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png',
+  'KL Rahul': '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png',
+  'Jasprit Bumrah': '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png',
+  'Ravindra Jadeja': '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png'
 };
 
-// Default fallback image
+// Default fallback image - using the uploaded image for all players
 const defaultPlayerImage = '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png';
 
-// Function to get player image
+// Function to get player image with console logging for debugging
 const getPlayerImage = (playerName) => {
+  console.log("Getting image for player:", playerName);
+  console.log("Image path:", playerImages[playerName] || defaultPlayerImage);
   return playerImages[playerName] || defaultPlayerImage;
 };
 
@@ -150,10 +151,14 @@ const PlayerProfile = () => {
   const { toast } = useToast();
   
   useEffect(() => {
+    console.log("PlayerProfile component mounted");
+    console.log("Looking for player with ID:", id);
+    
     const timer = setTimeout(() => {
       const foundPlayer = players.find(p => p.id === id);
       setPlayer(foundPlayer || players[0]);
       setLoading(false);
+      console.log("Player loaded:", foundPlayer || players[0]);
     }, 1000);
     
     return () => clearTimeout(timer);
@@ -213,9 +218,13 @@ const PlayerProfile = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="relative h-80 md:h-full overflow-hidden">
             <img 
-              src={getPlayerImage(player.name)} 
-              alt={player.name}
+              src={defaultPlayerImage} 
+              alt={player?.name || "Cricket Player"}
               className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              onError={(e) => {
+                console.error("Image failed to load:", e);
+                e.currentTarget.src = defaultPlayerImage;
+              }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
             <div className="absolute bottom-0 left-0 p-4 text-white">
@@ -867,9 +876,13 @@ const PlayerProfile = () => {
                 >
                   <div className="h-60 bg-gray-100 dark:bg-gray-800 overflow-hidden">
                     <img 
-                      src={getPlayerImage(player.name)}
-                      alt={`${player.name} action shot ${index + 1}`}
+                      src={defaultPlayerImage}
+                      alt={`${player?.name || "Cricket Player"} action shot ${index + 1}`}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                      onError={(e) => {
+                        console.error("Gallery image failed to load:", e);
+                        e.currentTarget.src = defaultPlayerImage;
+                      }}
                     />
                   </div>
                   <div className="p-3">
