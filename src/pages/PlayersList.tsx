@@ -1,26 +1,14 @@
 import React from 'react';
 import Layout from '@/components/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { usePlayers } from '@/services/cricketApi';
 import { Link } from 'react-router-dom';
 import { Skeleton } from '@/components/ui/skeleton';
 import { motion } from 'framer-motion';
-
-// Use a single reliable image source for all players
-const defaultPlayerImage = '/lovable-uploads/e80fb97a-4700-46f3-830a-a1d822bce699.png';
-
-// Player images mapping - simplified to use the same image
-const playerImages = {
-  'Virat Kohli': defaultPlayerImage,
-  'Rohit Sharma': defaultPlayerImage,
-  'MS Dhoni': defaultPlayerImage,
-  'KL Rahul': defaultPlayerImage,
-  'Jasprit Bumrah': defaultPlayerImage,
-  'Ravindra Jadeja': defaultPlayerImage
-};
+import { Trophy } from 'lucide-react';
 
 const PlayersList = () => {
   const { data: players, isLoading, error } = usePlayers();
@@ -66,8 +54,6 @@ const PlayersList = () => {
   ];
 
   const displayPlayers = players || mockPlayers;
-
-  console.log("Default player image path:", defaultPlayerImage);
 
   return (
     <Layout>
@@ -120,16 +106,10 @@ const PlayersList = () => {
                 <Card className="overflow-hidden hover:shadow-md transition-shadow">
                   <CardHeader className="pb-0">
                     <div className="flex items-center gap-4">
-                      <Avatar className="h-12 w-12">
-                        <AvatarImage 
-                          src={defaultPlayerImage}
-                          alt={player.name}
-                          onError={(e) => {
-                            console.error("Avatar image error in PlayersList:", e);
-                            e.currentTarget.src = defaultPlayerImage;
-                          }}
-                        />
-                        <AvatarFallback>{player.name.charAt(0)}</AvatarFallback>
+                      <Avatar className="h-12 w-12 bg-primary/10">
+                        <AvatarFallback className="bg-primary/10 text-primary">
+                          {player.name.charAt(0)}
+                        </AvatarFallback>
                       </Avatar>
                       <div>
                         <CardTitle className="text-lg">{player.name}</CardTitle>

@@ -199,24 +199,13 @@ const PlayerProfile = () => {
         className="glass-card rounded-xl overflow-hidden mb-6"
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="relative h-80 md:h-full overflow-hidden">
-            <img 
-              src={defaultPlayerImage} 
-              alt={player?.name || "Cricket Player"}
-              className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-              onError={(e) => {
-                console.error("Profile image failed to load:", e);
-                console.log("Trying fallback image");
-                e.currentTarget.src = defaultPlayerImage;
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-            <div className="absolute bottom-0 left-0 p-4 text-white">
-              <div className="px-2 py-1 text-xs rounded-full bg-primary inline-block mb-2">
-                {player?.role}
+          <div className="relative h-80 md:h-full overflow-hidden bg-primary/10 flex items-center justify-center">
+            <div className="text-center">
+              <div className="w-32 h-32 mx-auto rounded-full bg-primary/20 flex items-center justify-center">
+                <span className="text-6xl font-bold text-primary">{player?.name.charAt(0)}</span>
               </div>
-              <h1 className="text-2xl font-bold">{player?.name}</h1>
-              <p className="text-sm opacity-80">{player?.nickname}</p>
+              <h2 className="mt-4 text-2xl font-bold">{player?.name}</h2>
+              <p className="text-muted-foreground">{player?.nickname}</p>
             </div>
           </div>
           
